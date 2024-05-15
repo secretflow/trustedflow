@@ -76,7 +76,7 @@ class BuildBazelExtension(build_ext.build_ext):
             / Path(ext._bazel_workspace)
             / Path(ext.name)
         )
-        ext_dest_path = Path(ROOT_DIR) / Path(ext._bazel_workspace) / Path(ext.name)
+        ext_dest_path = Path(ROOT_DIR) / Path(ext._bazel_workspace) / Path(TEE_TYPE) / Path(ext.name)
         Path(ext_dest_path).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy(ext_bazel_bin_path, ext_dest_path)
 
@@ -98,7 +98,7 @@ def build_generator():
         long_description=f"An attestation report generation library for {TEE_TYPE}",
         license="Apache 2.0",
         package_dir={"": "pylib"},
-        packages=["trustedflow/attestation/generation"],
+        packages=[f"trustedflow/attestation/generation/{TEE_TYPE}"],
         package_data={
             "": ["*.so"],
         },
