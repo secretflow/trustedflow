@@ -76,7 +76,10 @@ class BuildBazelExtension(build_ext.build_ext):
             / Path(ext._bazel_workspace)
             / Path(ext.name)
         )
-        ext_dest_path = Path(ROOT_DIR) / Path(ext._bazel_workspace) / Path(TEE_TYPE) / Path(ext.name)
+        if PACKAGE_TYPE == "generation":
+          ext_dest_path = Path(ROOT_DIR) / Path(ext._bazel_workspace) / Path(TEE_TYPE) / Path(ext.name)
+        else:
+          ext_dest_path = Path(ROOT_DIR) / Path(ext._bazel_workspace) / Path(ext.name)
         Path(ext_dest_path).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy(ext_bazel_bin_path, ext_dest_path)
 
